@@ -1,0 +1,60 @@
+  <!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="utf-8">
+  <meta name="author" content="" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <title>sdf</title>
+      <style type="text/css">
+      #d_clip_button {
+        text-align: center;
+        border: 1px solid black;
+        background-color: #ccc;
+        margin: 10px;
+        padding: 10px;
+      }
+      #d_clip_button.zeroclipboard-is-hover { background-color: #eee; }
+      #d_clip_button.zeroclipboard-is-active { background-color: #aaa; }
+    </style>
+  </head>
+  
+  <body>
+  	<script type="text/javascript" src="jquery-1.10.2.js" ></script>
+    <script type="text/javascript" src="ZeroClipboard.min.js"></script>
+
+    <div id="d_clip_button" data-clipboard-text="Copy Me!">Copy To Clipboard</div>
+
+    <script type="text/javascript">
+      var clip = new ZeroClipboard( $('#d_clip_button') );
+
+      clip.on( 'load', function(client) {
+         alert( "movie is loaded" );
+      } );
+      clip.on("noflash",function(client,args){
+      	alert("浏览器没有开启flash插件");
+      });
+      clip.on( 'complete', function(client, args) {
+        alert("Copied text to clipboard: " + args.text );
+      } );
+
+      clip.on( 'mouseover', function(client) {
+        // alert("mouse over");
+      } );
+
+      clip.on( 'mouseout', function(client) {
+        // alert("mouse out");
+      } );
+
+      clip.on( 'mousedown', function(client) {
+
+        // alert("mouse down");
+      } );
+
+      clip.on( 'mouseup', function(client) {
+        // alert("mouse up");
+      } );
+
+    </script>
+  </body>
+  </html>
