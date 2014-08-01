@@ -345,6 +345,14 @@ xy.fillZero = function(num, digit) {
 	}
 	return str;
 };
+//返回字符串长度
+xy.getLength=function(str){
+    var iNum=0;
+    for (var i = 0,l=str.length; i < l ; i++) {
+        encodeURI(str.charAt(i)).length>2 ? iNum+= 2 : iNum++;
+    }
+    return iNum;
+};
 //图片预加载
 xy.loadImage = function(url, callback) {
 	var img = new Image(); //创建一个Image对象，实现图片的预下载
