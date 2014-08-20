@@ -1,4 +1,4 @@
-git init  ——初始化一个git项目
+﻿git init  ——初始化一个git项目
 
 git add myFireName/*   ——添加修改  *代表所有文件
 git commit  ——提交修改
@@ -32,7 +32,10 @@ git branch -D dev ——强行删除dev分支，即使它未被合并
 git checkout dev ——切换到Dev分支
 git checkout -b dev  ——上面两条的简写
 git branch ——打印所有分支，当前分支前面会标一个*号
+git log --graph --pretty=oneline --abbrev-commit  ——打印树状结构图
 git merge --no-ff dev ——禁用“Fast forward”，创建一个新的commit
+
+
 
 git stash 存储工作区
 git stash list 查看存储列表
