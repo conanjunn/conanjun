@@ -7,6 +7,11 @@ git commit -m massage  ——写入提交信息，并提交
 
 git status ——显示当前状态
 git diff ——查看改动
+git diff：是查看working tree与index file的差别的。
+git diff --cached  git diff --staged：是查看index file与commit的差别的。    
+git diff HEAD：是查看working tree和commit的差别的。（你一定没有忘记，HEAD代表的是最近的一次commit的信息）
+git diff dev master 比较两个分支的差别
+
 git log ——查看日志
 git log --pretty=oneline ——打印在一行
 
@@ -15,7 +20,8 @@ git reset --hard HEAD^^  ——后退2步
 git reset --hard HEA~100 ——后退100步
 git reset --hard commitId ——后退到commitId
 git reflog ——查看命令历史
-git checkout -- fileName ——撤销修改
+git checkout -- fileName ——撤销工作区的修改
+git reset head *  ——撤销暂存区的修改，将他们放回工作区
 git rm ——删除文件
 
 git remote add origin git@server-name:path/repo-name.git;  ——关联远程仓库
@@ -51,3 +57,9 @@ git tag -d v0.1  删除标签
 命令git push origin --tags可以推送全部未推送过的本地标签；
 命令git tag -d tagname可以删除一个本地标签；
 命令git push origin :refs/tags/tagname可以删除一个远程标签。
+
+
+蓝色 本地库和远程库一样
+绿色 本地有更新
+红色 远程有更新
+黄色 冲突了
