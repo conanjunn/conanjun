@@ -107,7 +107,7 @@ xy.ajax = function(json) {
 		"url": "",  //发生的链接地址
 		"done": function() {}, //成功后执行的方法
 		"fail": function() {}, //失败后执行的方法
-		"type": "GET", //发送类型  
+		"type": "GET", //发送类型
 		"data": null, //发送的数据 json格式，例：{'name':'abc'}
 		"async": true, //异步或同步
 		"cache": true,//是否缓存
@@ -271,7 +271,7 @@ xy.supports = (function() {
 		for (var i = 0; i < len ; i++) {
 			if (vendors[i] + prop in div.style) {
 				return true;
-			}	
+			}
 		}
 		return false;
 	};
@@ -347,11 +347,11 @@ xy.fillZero = function(num, digit) {
 };
 //返回字符串长度
 xy.getLength=function(str){
-    var iNum=0;
-    for (var i = 0,l=str.length; i < l ; i++) {
-        encodeURI(str.charAt(i)).length>2 ? iNum+= 2 : iNum++;
-    }
-    return iNum;
+	var iNum = 0;
+	for (var i = 0, l = str.length; i < l; i++) {
+		encodeURI(str.charAt(i)).length > 2 ? iNum++  : iNum += 0.5;
+	}
+	return Math.ceil(iNum);
 };
 //图片预加载
 xy.loadImage = function(url, callback) {
@@ -368,7 +368,7 @@ xy.loadImage = function(url, callback) {
 };
 xy.tween = {
 	//t : 当前时间   b : 初始值  c : 变化值   d : 总时间
-	//return : 当前的位置 
+	//return : 当前的位置
 	linear: function(t, b, c, d) { //匀速
 		return c * t / d + b;
 	},
@@ -548,7 +548,7 @@ xy.ClassAnimate.prototype = {
 	}
 };
 
-//普通拖拽 
+//普通拖拽
 xy.ClassDrag = function(obj) {
 	this.obj = obj;
 	if (this.obj.offsetParent.nodeName.toLowerCase() == 'body' || this.obj.offsetParent.nodeName.toLowerCase() == 'html') {
@@ -999,7 +999,7 @@ ClassXy.prototype = {
 				this.elements[0].appendChild(newXy.elements[0]);
 			}
 		}
-		return this;		
+		return this;
 	},
 	prependTo:function(obj,oParent) {
 		if ((typeof obj).toLowerCase()==="object") {
