@@ -1,0 +1,8 @@
+<snippet>
+    <content><![CDATA[for ( var i in $1) {
+	$0
+}]]></content>
+    <tabTrigger>fori</tabTrigger>
+    <scope>source.js</scope>
+    <description>for (…in) {…}</description>
+</snippet>

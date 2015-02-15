@@ -1,0 +1,18 @@
+<snippet>
+    <content><![CDATA[(function(root, factory) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(factory);
+	} else if (typeof module == 'object' && module.exports) {
+		// CommonJS
+		// require('someModule');
+		module.exports = factory();
+	} else {
+		// Browser globals
+		root.moduleName = factory();
+	}
+})(this, function() {$0});]]></content>
+    <tabTrigger>plus</tabTrigger>
+    <scope>source.js</scope>
+    <description>plus</description>
+</snippet>
