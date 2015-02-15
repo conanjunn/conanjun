@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="renderer" content="webkit"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<style>
+			.chart {
+				width: 500px;
+			}
+			.chart div {
+				background: red;
+				margin-top: 10px;
+			}
+		</style>
+		<script src="../bower_components/d3/d3.js"></script>
+		<title></title>
+	</head>
+	<body>
+		<script>
+			var arr = [3, 4, 11, 22, 33, 44, 60];
+
+			d3.select('body').append('div').attr('class', 'chart').selectAll('div').data(arr).enter().append('div').style('width', d3.scale.linear().domain([0, d3.max(arr)]).range(['0px', '500px'])).text(function(d) {
+				return d;
+			});
+		</script>
+	</body>
+</html>
