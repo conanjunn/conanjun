@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+		<meta name="fragment" content="!" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="renderer" content="webkit"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<script src="js/d3.min.js"></script>
+		<script src="js/data.js"></script>
+		<script src="js/donut-chart.js"></script>
+		<style type="text/css">
+			body { background:#0D1624; padding-top: 200px; }
+			#donut0 { position:relative; }
+			.center { position:absolute;top: 50%; left: 50%; transform:translate(-50%, -50%); -webkit-transform:translate(-50%, -50%); -moz-transform:translate(-50%, -50%);-ms-transform:translate(-50%, -50%);}
+			svg:not(:root) {overflow: visible;}
+		</style>
+		<title></title>
+	</head>
+	<body>
+		<div id="donut0">
+		</div>
+		<script>
+			d3.csv("js/data_re.csv", function(rows) {
+				rows = rows.reverse();
+				console.log(rows);
+				var arr = [];
+				var colorArr = ['rgba(204,19,242,0.30)', '#CD14F2', '#FD9602'];
+				for (var i = 0, l = rows.length; i < l; i++) {
+					var json = {};
+					json.unit = rows[i]['unit'];
+					json.total = 10249;
+					json.t = rows[i]['section'];
+					json.values = [];
+					json.values.push({
+						n: rows[i]['study'] - rows[i]['study_this_week'],
+						color: colorArr[0]
+					});
+					json.values.push({
+						n: rows[i]['study_this_week'] - rows[i]['review_this_week'],
+						color: colorArr[1]
+					});
+					json.values.push({
+						n: rows[i]['review_this_week'],
+						color: colorArr[2]
+					});
+					arr.push(json);
+					json = null;
+				}
+				createDonut('donut', 10, 500, arr);
+			});
+			/*
+				sId: id
+				donutMargin: 每个圈之间的间距
+				dataArr: 数据的数组
+				initSize: 第一个初始大小
+			*/
+			function createDonut(sId, donutMargin, initSize, dataArr) {
+				var wrap = document.getElementById(sId + '0');
+				wrap.style.width = initSize + 'px';
+				wrap.style.height = initSize + 'px';
+				new donutChart({
+					container: "#" + sId + "0",
+					width: initSize,
+					height: initSize,
+					transitionDelay: 50,
+					thickness: 2,
+					data: dataArr[0],
+					buildComplete: function() {
+						var self = this;
+						this.dataGroup.append("svg:text")
+							.attr("dy", "0")
+							.attr("text-anchor", "middle")
+							.attr("y", -((initSize) / 2) + 'px')
+							.style("font", "bold 12px Arial")
+							.attr('fill', '#FFF')
+							.text(dataArr[0].unit);
+					}
+				});
+				var isChange = dataArr[0].unit;
+				var backupChange = isChange;
+				var isText = false;
+				for (var i = 1, l = dataArr.length; i < l; i++) {
+					var oDiv = document.createElement('div');
+					oDiv.id = sId + i;
+					var oParent = document.getElementById(sId + (i - 1));
+					if (oParent) {
+						var width = oParent.offsetWidth;
+						var height = oParent.offsetHeight;
+						oDiv.className = 'center';
+						oParent.appendChild(oDiv);
+
+						var nextWidth = width - donutMargin;
+						var nextHeight = height - donutMargin;
+						var textY = donutMargin;
+
+						isChange = dataArr[i].unit;
+						if (isChange != backupChange) {
+							nextWidth -= donutMargin * 5;
+							nextHeight -= donutMargin * 5;
+							backupChange = isChange;
+							textY = donutMargin * 2;
+							isText = true;
+						}
+
+						new donutChart({
+							container: "#" + sId + i,
+							width: nextWidth,
+							height: nextHeight,
+							thickness: 2,
+							transitionDelay: i * 100,
+							data: dataArr[i],
+							buildComplete: function() {
+								if (!isText) { return false;}
+								var self = this;
+								this.dataGroup.append("svg:text")
+									.attr("dy", "1em")
+									.attr("text-anchor", "middle")
+									.attr("y", -((width - textY) / 2) + 'px')
+									.style("font", "bold 12px Arial")
+									.attr('fill', '#FFF')
+									.text(dataArr[i].unit);
+								isText = false;
+							}
+						});
+
+					}
+					oDiv = oParent = width = height = null;
+				}
+			}
+		</script>
+	</body>
+</html>
