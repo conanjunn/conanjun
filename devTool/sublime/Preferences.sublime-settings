@@ -21,6 +21,6 @@
 	"trim_trailing_white_space_on_save": true,
 	"wide_caret": true,
 	"word_wrap": true,
+	"open_files_in_new_window": false,
 	"binary_file_patterns": ["*.jpg", "*.jpeg", "*.png", "*.gif", "*.ttf", "*.tga", "*.dds", "*.ico", "*.eot", "*.pdf", "*.swf", "*.jar", "*.zip", "node_modules/**/*"]
 }
-
