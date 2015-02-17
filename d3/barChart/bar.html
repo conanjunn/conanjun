@@ -8,24 +8,87 @@
 		<meta name="renderer" content="webkit"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<style>
-			.chart {
+/*			.chart {
 				width: 500px;
 			}
 			.chart div {
 				background: red;
 				margin-top: 10px;
+			}*/
+
+			.chart rect {
+			    stroke: white;
+			    fill: red;
 			}
+
 		</style>
 		<script src="../bower_components/d3/d3.js"></script>
 		<title></title>
 	</head>
 	<body>
 		<script>
-			var arr = [3, 4, 11, 22, 33, 44, 60];
+			var data = [4, 8, 15, 16, 23, 42];
 
-			d3.select('body').append('div').attr('class', 'chart').selectAll('div').data(arr).enter().append('div').style('width', d3.scale.linear().domain([0, d3.max(arr)]).range(['0px', '500px'])).text(function(d) {
-				return d;
-			});
+			var config = {
+				width: 420,
+				height: 20,
+				lineWidth: 10,
+				lineHeight: 15
+			};
+
+			var chart = d3.select("body").append("svg")
+				.attr("class", "chart")
+				.attr("width", config.width + config.lineWidth)
+				.attr("height", config.height * data.length + config.lineHeight)
+				.append('g')
+				.attr('transform', 'translate(' + config.lineWidth + ', ' + config.lineHeight + ')');
+
+			var x = d3.scale.linear()
+				.domain([0, d3.max(data)])
+				.range([0, config.width]);
+
+			var y = d3.scale.ordinal()
+				.domain(data)
+				.rangeBands([0, config.height * data.length]); // 开始坐标，结束坐标
+
+			chart.selectAll("rect")
+				.data(data)
+				.enter().append("rect")
+				.attr("y", y)
+				.attr("width", x)
+				.attr("height", y.rangeBand()); // y.rangeBand返回的是总长度/数组的元素个数
+
+			chart.selectAll("text")
+		        .data(data)
+		        .enter().append("text")
+		        .attr("x", x)
+		        .attr("y", function(d) {
+		        	return y(d) + y.rangeBand() / 2;
+		        })
+		        .attr("dx", -3) // padding-right
+		        .attr("dy", ".35em") // vertical-align: middle
+		        .attr("text-anchor", "end") // text-align: right
+		        .text(String);
+
+			chart.selectAll("line")
+	           .data(x.ticks(10))
+	           .enter().append("line")
+	           .attr("x1", x)
+	           .attr("x2", x)
+	           .attr("y1", 0)
+	           .attr("y2", config.height * data.length)
+	           .style("stroke", "#ccc");
+
+		   chart.selectAll("a")
+	           .data(x.ticks(10))
+	           .enter().append("text")
+	           .attr("class", "rule")
+	           .attr("x", x)
+	           .attr("y", 0)
+	           .attr("dy", -3)
+	           .attr("text-anchor", "middle")
+	           .text(String);
+
 		</script>
 	</body>
 </html>
