@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="renderer" content="webkit"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<script src="bower_components/angular/angular.js"></script>
+		<title>
+		</title>
+	</head>
+	<body id="body">
+		<div ng-controller="ctrl">
+			<p>{{aaa.aaa}}</p>
+			<div ng-include="'template.html'"></div>
+		</div>
+		<script>
+			var app = angular.module('app', []);
+			app.run(['$templateCache', function($templateCache) {
+				// templateCache
+				$templateCache.put('template.html', '<div>这里模板</div>');
+			}]);
+			app.controller('ctrl', ['$scope', '$cacheFactory', 'cache', function($scope, $cacheFactory, cache) {
+				// 获取cache
+				$scope.aaa = $cacheFactory.get('cache1').get('aaa');
+
+			}]);
+			app.provider('cache', function() {
+				return {
+					$get: ['$cacheFactory', function($cacheFactory) {
+						// 创建一个cacheFactory
+						var cache = $cacheFactory('cache1');
+
+						// 添加一个cache
+						cache.put('aaa', {
+							aaa: 1
+						});
+
+						console.log(cache.info());
+					}]
+				};
+			});
+			angular.bootstrap(document.getElementById('body'), ['app']);
+		</script>
+	</body>
+</html>

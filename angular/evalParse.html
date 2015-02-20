@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="renderer" content="webkit"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<script src="bower_components/angular/angular.js"></script>
+		<title></title>
+	</head>
+	<body ng-controller="ctrl">
+		<div ng-click="change()">
+			change
+		</div>
+		{{ c }}, {{ a }}, {{ d }}
+		<script>
+			var app = angular.module('app', []);
+			app.controller('ctrl', ['$scope', '$parse', function($scope, $parse) {
+				$scope.a = 1;
+				$scope.b = 2;
+				// $eval 只能获取
+				$scope.c = $scope.$eval('a + b');
+				console.log($scope);
+				// $parse 获取 + 设置
+
+				// parse a 返回一个函数
+				var model = $parse('a');
+				// 执行函数传入上下文环境 返回表达式的值
+				$scope.d = model($scope);
+				// 改变上下文环境中的 此表达式的值
+				$scope.change = function() {
+					model.assign($scope, 'ffff');
+				};
+			}]);
+			angular.bootstrap(document, ['app']);
+		</script>
+	</body>
+</html>
