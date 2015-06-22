@@ -11,6 +11,9 @@
 	[
 		"Vintage"
 	],
+	"font_options": [ "gray_antialias" ], // On retina Mac
+	"indent_guide_options": [ "draw_normal", "draw_active" ], // Highlight active indent
+	"always_show_minimap_viewport": true,
 	"indent_to_bracket": true,
 	"line_padding_bottom": 1,
 	"line_padding_top": 1,
