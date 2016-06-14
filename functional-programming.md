@@ -27,7 +27,7 @@
 
 3.lazy evaluation 惰性求值
 
-4.higher order function 高阶函数
+4.higher order function 高阶函数 (高阶函数只是将函数作为参数或返回值的函数)
 
 #### 优点
 ###### 1. 代码简洁，开发快速
